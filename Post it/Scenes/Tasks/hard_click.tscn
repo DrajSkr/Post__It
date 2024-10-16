@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://cquwe1x3sr67r"]
+
+[ext_resource type="Texture2D" uid="uid://p34uh0nyyvub" path="res://assets/corkboard_ns_paper_3.png" id="1_aflu1"]
+[ext_resource type="Script" path="res://Scripts/hard_click.gd" id="2_t01ab"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ckdau"]
+size = Vector2(450, 512.5)
+
+[node name="hard_click" type="Sprite2D"]
+self_modulate = Color(0.752941, 1, 0, 1)
+position = Vector2(7.62939e-06, 1.00001)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("1_aflu1")
+centered = false
+script = ExtResource("2_t01ab")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="Button" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = -4.57764e-05
+offset_top = -2.50003
+offset_right = 497.0
+offset_bottom = 466.5
+flat = true
+
+[node name="time" type="Label" parent="."]
+offset_left = 405.0
+offset_top = 12.5
+offset_right = 468.0
+offset_bottom = 82.5
+theme_override_font_sizes/font_size = 30
+text = "0.56"
+clip_text = true
+
+[node name="click_me" type="Label" parent="."]
+offset_left = 15.0
+offset_top = 17.5
+offset_right = 151.0
+offset_bottom = 65.5
+rotation = -0.0229706
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Click Me
+2 Points"
+clip_text = true
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(242.5, 216.25)
+shape = SubResource("RectangleShape2D_ckdau")
+
+[node name="time_bar" type="ColorRect" parent="."]
+offset_left = 15.0
+offset_top = -33.0
+offset_right = 465.0
+offset_bottom = -10.0
+color = Color(0, 1, 0, 1)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
